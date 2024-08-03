@@ -3,6 +3,8 @@ import Button from "./components/button";
 import User from './pages/user/user';
 import Product from './pages/product/product';
 import MainLayout from "./layouts/main-layout/main-layout";
+import State from './State';
+import Component from "./Component";
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -54,6 +56,13 @@ function App() {
       <MainLayout>
         <Product />
       </MainLayout>
+
+
+      <hr />
+      <State />
+
+      <hr />
+      <Component />
       
     </>
   )
