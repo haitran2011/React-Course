@@ -45,7 +45,7 @@ function Component() {
         }}    
       />
 
-      <Typhography text={text} /> 
+      <Typhography text={text} key={timstamp} /> 
     </div>
   )
 }
