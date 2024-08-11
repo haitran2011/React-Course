@@ -5,6 +5,9 @@ import Product from './pages/product/product';
 import MainLayout from "./layouts/main-layout/main-layout";
 import State from './State';
 import Component from "./Component";
+import EventHandler from "./EventHandler";
+import ConditionalRendering from "./ConditionalRendering";
+import List from "./List";
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -63,6 +66,15 @@ function App() {
 
       <hr />
       <Component />
+
+      <hr />
+      <EventHandler />
+
+      <hr />
+      <ConditionalRendering />
+
+      <hr />
+      <List />
       
     </>
   )
