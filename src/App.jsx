@@ -8,6 +8,7 @@ import Component from "./Component";
 import EventHandler from "./EventHandler";
 import ConditionalRendering from "./ConditionalRendering";
 import List from "./List";
+import TodoAnatomy from './sample-app/todo-anatomy/todo-anatomy'
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -75,6 +76,9 @@ function App() {
 
       <hr />
       <List />
+
+      <hr />
+      <TodoAnatomy />
       
     </>
   )
