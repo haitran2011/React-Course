@@ -9,6 +9,7 @@ import EventHandler from "./EventHandler";
 import ConditionalRendering from "./ConditionalRendering";
 import List from "./List";
 import TodoAnatomy from './sample-app/todo-anatomy/todo-anatomy'
+import CSS from "./CSS";
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -79,6 +80,9 @@ function App() {
 
       <hr />
       <TodoAnatomy />
+
+      <hr />
+      <CSS />
       
     </>
   )
