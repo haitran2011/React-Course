@@ -1,8 +1,16 @@
 import React from 'react';
 import clsx from 'clsx';
 import Heading from './components/heading';
-
+import Title from './components/title';
 import styles from './css-style.module.css';
+import Button from './components/button';
+
+/*
+css-in-js
+- styled component (popular)
+- emotion react
+*/
+
 
 function CSS() {
   const [auth, setAuth] = React.useState(false);
@@ -33,6 +41,10 @@ function CSS() {
       >
         CSS
       </h4>
+      <br />
+
+      <Title text="this is style component" />
+        
       <div
         style={titleStyle}
       >
@@ -41,6 +53,19 @@ function CSS() {
       </div>
 
       <Heading text="demo with css module" />
+
+
+      <Title isBold={false} text="lorerm lorerm lorem" />
+      
+      <Button text="demo button with styled component" />
+
+      <Button text="button2" isGradient textColor="#fff" />
+      <Button 
+        text="button3" 
+        border="1px solid #000" 
+        textColor="#f00"
+        borderRadius="20px"
+      />
 
     </div>
   )

@@ -1,3 +1,4 @@
+import React from "react";
 import Props from "./Props"
 import Button from "./components/button";
 import User from './pages/user/user';
@@ -10,6 +11,8 @@ import ConditionalRendering from "./ConditionalRendering";
 import List from "./List";
 import TodoAnatomy from './sample-app/todo-anatomy/todo-anatomy'
 import CSS from "./CSS";
+import GenerateBoxTony from "./sample-app/generate-box-tony/generate-box-tony";
+import Header from "./components/header/header";
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -17,12 +20,23 @@ function Heading({ text = 'Default text' }) {
   )
 }
 
-
 function App() {
+  const [menus, setMenus] = React.useState([
+    { id: 1, title: 'About Us', underline: false },
+    { id: 2, title: 'Contact Us', underline: false}
+  ])
+
   const greeting = {
     title: 'Welcome',
     caption: 'Happy brithday',
     description: 'lorem'
+  }
+
+  function toggleUnderline(menuId) {
+    const newMenus = [...menus];
+    const index = newMenus.findIndex(menu => menu.id === menuId);
+    newMenus[index].underline = !newMenus[index].underline;
+    setMenus(newMenus)
   }
 
   return (
@@ -83,6 +97,12 @@ function App() {
 
       <hr />
       <CSS />
+
+      <hr />
+      <GenerateBoxTony />
+
+      <hr />
+      <Header menus={menus} toggleUnderline={toggleUnderline} />
       
     </>
   )

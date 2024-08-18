@@ -5,3 +5,18 @@
 #headingCss {
   text-decoration: underline;
 }
+
+/* css in js */
+.heading {
+  /* text-decoration: props => props.isLink ? underline : none; */
+  /* font-weight: props => props.isBold ? bold : normal; */
+  text-decoration: underline;
+}
+
+.heading--underline {
+  text-decoration: underline;
+}
+
+.heading--none {
+  text-decoration: none;
+}
