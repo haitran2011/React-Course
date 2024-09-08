@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML CSS</title>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+    <!-- external css -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/index.css" />
+
+    <style type="text/css">
+      /* internal css */
+      p {
+        color: #fff
+      }
+    </style>
+    
+
+    <!-- css how to
+      Three ways to insert CSS
+        External CSS
+        Internal CSS
+        Inline CSS
+      Cascading order: All the styles have priority rule
+        Inline style (inside an HTML element).
+        External and internal style sheets (depend on head position).
+        internal
+        external
+        Browser default
+    -->
+
+  </head>
+  <body>
+    <div 
+      id="root"
+    >
+      <p>external css</p>
+    </div>
+
+    <div id="products"></div>
+
+    <script type="text/javascript" href="./assets/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" href="./assets/js/jquery-3.7.1.slim.min.js"></script>
+    <script type="text/javascript" href="./assets/js/vue.cjs.js"></script>
+    
+    <script type="text/javascript" href="./assets/js/index.js"></script>
+    <script type="text/babel">
+      // Define a component called Greetings
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.Model = [];
+          this.pager = [];
+        }
+
+        loadProducts(url) {
+            catalog.getResponse(url);
+            //set state
+            var stateurl = new URL(url, window.location.origin);
+            stateurl.searchParams.delete('timestamp');
+            window.history.replaceState({ path: stateurl.href }, '', stateurl.href);
+        }
+        setRating(rating) {
+            const url = new URL(window.location.href);
+            if (rating === "") {
+                url.searchParams.delete('rating');
+            }
+            else {
+                url.searchParams.set('rating', rating);
+            }                
+            url.searchParams.delete('pagenumber');
+
+            this.loadProducts(url.href);
+        }
+        getResponse(url) {
+            url = new URL(url, window.location.origin);
+            url.searchParams.set('timestamp', new Date().getTime());
+            const options = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            };
+            axios.get(url, options)
+                .then(response => {
+                    catalog.Model = response.data;
+                })
+                .catch(err => {
+                    console.log(`${err} whilst contacting the catalog page.`)
+                });
+        }
+        goToPage(page) {
+            let urlPagenumber = new URL(window.location.href);
+            urlPagenumber.searchParams.set('pagenumber', page);
+            catalog.loadProducts(urlPagenumber.href);
+            this.scrollToSection();
+        }
+
+        scrollToSection() {
+            var container = document.getElementById("catalog-products");
+            window.scrollTo({
+                top: container.offsetTop,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        componentDidMount() {
+          this.Model = model
+        }
+
+        componentDidUpdate() {
+            if (this.Model) {
+                catalog.pager = [];
+                function getValMin() {
+                    var i;
+                    if ((catalog.Model.PagingFilteringContext.PageNumber - 4) < 1) {
+                        i = 1;
+                    } else {
+                        i = catalog.Model.PagingFilteringContext.PageNumber - 4;
+                    }
+                    return i;
+                }
+                function getValMax() {
+                    var i;
+                    if ((catalog.Model.PagingFilteringContext.PageNumber + 4) < catalog.Model.PagingFilteringContext.TotalPages) {
+                        i = catalog.Model.PagingFilteringContext.PageNumber + 4;
+                    } else {
+                        i = catalog.Model.PagingFilteringContext.TotalPages;
+                    }
+                    return i;
+                }
+                for (var i = getValMin(); i <= getValMax(); i++) {
+                    catalog.pager.push(i);
+                }
+
+                var notFilteredList = catalog.Model.PagingFilteringContext.SpecificationFilter.NotFilteredItems;
+                var filteredList = catalog.Model.PagingFilteringContext.SpecificationFilter.AlreadyFilteredItems;
+                var filterName = 'SpecificationAttributeName';
+
+                var groupBy = function (xs, key) {
+                    return xs.reduce(function (rv, x) {
+                        (rv[x[key]] = rv[x[key]] || []).push(x);
+                        return rv;
+                    }, {});
+                };
+
+                catalog.Model.PagingFilteringContext.SpecificationFilter.NotFilteredItems = groupBy(notFilteredList, filterName);
+                catalog.Model.PagingFilteringContext.SpecificationFilter.AlreadyFilteredItems = groupBy(filteredList, filterName);
+            }
+        }
+
+        render() {
+          return <h1>Hello, {this.props.name}</h1>;
+        }
+      }
+      // Render the component to the DOM
+      ReactDOM.createRoot(document.getElementById('products')).render(
+        <App />
+      )
+
+      // vuew
+      var catalog = new Vue({
+        data: function () {
+            return {
+                Model: [],
+                pager: []
+            }
+        },
+        methods: {
+            loadProducts(url) {
+                catalog.getResponse(url);
+                //set state
+                var stateurl = new URL(url, window.location.origin);
+                stateurl.searchParams.delete('timestamp');
+                window.history.replaceState({ path: stateurl.href }, '', stateurl.href);
+            },
+            setRating(rating) {
+                const url = new URL(window.location.href);
+                if (rating === "") {
+                    url.searchParams.delete('rating');
+                }
+                else {
+                    url.searchParams.set('rating', rating);
+                }                
+                url.searchParams.delete('pagenumber');
+
+                this.loadProducts(url.href);
+            },
+            getResponse(url) {
+                url = new URL(url, window.location.origin);
+                url.searchParams.set('timestamp', new Date().getTime());
+                const options = {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                };
+                axios.get(url, options)
+                    .then(response => {
+                        catalog.Model = response.data;
+                    })
+                    .catch(err => {
+                        console.log(`${err} whilst contacting the catalog page.`)
+                    });
+            },
+            goToPage(page) {
+                let urlPagenumber = new URL(window.location.href);
+                urlPagenumber.searchParams.set('pagenumber', page);
+                catalog.loadProducts(urlPagenumber.href);
+                this.scrollToSection();
+            },
+            scrollToSection() {
+                var container = document.getElementById("catalog-products");
+                window.scrollTo({
+                    top: container.offsetTop,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+        },
+        created() {
+            this.Model = model
+        },
+        watch: {
+            Model: function(val) {
+                if (val) {
+                    catalog.pager = [];
+                    function getValMin() {
+                        var i;
+                        if ((catalog.Model.PagingFilteringContext.PageNumber - 4) < 1) {
+                            i = 1;
+                        } else {
+                            i = catalog.Model.PagingFilteringContext.PageNumber - 4;
+                        }
+                        return i;
+                    }
+                    function getValMax() {
+                        var i;
+                        if ((catalog.Model.PagingFilteringContext.PageNumber + 4) < catalog.Model.PagingFilteringContext.TotalPages) {
+                            i = catalog.Model.PagingFilteringContext.PageNumber + 4;
+                        } else {
+                            i = catalog.Model.PagingFilteringContext.TotalPages;
+                        }
+                        return i;
+                    }
+                    for (var i = getValMin(); i <= getValMax(); i++) {
+                        catalog.pager.push(i);
+                    }
+
+                    var notFilteredList = catalog.Model.PagingFilteringContext.SpecificationFilter.NotFilteredItems;
+                    var filteredList = catalog.Model.PagingFilteringContext.SpecificationFilter.AlreadyFilteredItems;
+                    var filterName = 'SpecificationAttributeName';
+
+                    var groupBy = function (xs, key) {
+                        return xs.reduce(function (rv, x) {
+                            (rv[x[key]] = rv[x[key]] || []).push(x);
+                            return rv;
+                        }, {});
+                    };
+
+                    catalog.Model.PagingFilteringContext.SpecificationFilter.NotFilteredItems = groupBy(notFilteredList, filterName);
+                    catalog.Model.PagingFilteringContext.SpecificationFilter.AlreadyFilteredItems = groupBy(filteredList, filterName);
+                }
+            }
+        }
+    });
+
+    </script>
+  </body>
+
+</html>

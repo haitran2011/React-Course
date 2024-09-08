@@ -13,6 +13,9 @@ import TodoAnatomy from './sample-app/todo-anatomy/todo-anatomy'
 import CSS from "./CSS";
 import GenerateBoxTony from "./sample-app/generate-box-tony/generate-box-tony";
 import Header from "./components/header/header";
+import Form from "./Form";
+import StateHook from "./StateHook";
+import LifeCycleHook from './LifeCycleHook';
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -25,6 +28,7 @@ function App() {
     { id: 1, title: 'About Us', underline: false },
     { id: 2, title: 'Contact Us', underline: false}
   ])
+  const [isShowLifeCycle, setIsShowLifeCycle] = React.useState(true)
 
   const greeting = {
     title: 'Welcome',
@@ -37,6 +41,13 @@ function App() {
     const index = newMenus.findIndex(menu => menu.id === menuId);
     newMenus[index].underline = !newMenus[index].underline;
     setMenus(newMenus)
+  }
+
+  function showLifeCycle() {
+    // toggle on/off
+    // 1: false => !false (true)
+    // 2: true => !true (false)
+    setIsShowLifeCycle(prevState => !prevState); 
   }
 
   return (
@@ -104,6 +115,15 @@ function App() {
       <hr />
       <Header menus={menus} toggleUnderline={toggleUnderline} />
       
+      <hr />
+      <Form />
+
+      <hr />
+      <StateHook />
+
+      <hr />
+      <button type="button" onClick={showLifeCycle}>On/off lifecycle hook</button>
+      {isShowLifeCycle && <LifeCycleHook />}
     </>
   )
 }

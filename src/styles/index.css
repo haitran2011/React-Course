@@ -20,3 +20,29 @@
 .heading--none {
   text-decoration: none;
 }
+
+.generateBox_form {
+  display: flex;
+  align-items: center;
+}
+
+.generateBox_input {
+  border: 1px solid #ccc;
+}
+
+.generate_box_container {
+  display: flex;
+}
+
+.generate_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+  color: #000;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
