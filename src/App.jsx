@@ -16,6 +16,7 @@ import Header from "./components/header/header";
 import Form from "./Form";
 import StateHook from "./StateHook";
 import LifeCycleHook from './LifeCycleHook';
+import TrafficLightTony from "./sample-app/traffic-light-tony/TrafficLightTony";
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -124,6 +125,10 @@ function App() {
       <hr />
       <button type="button" onClick={showLifeCycle}>On/off lifecycle hook</button>
       {isShowLifeCycle && <LifeCycleHook />}
+
+      <br />
+
+      <TrafficLightTony />
     </>
   )
 }
