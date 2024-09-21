@@ -17,6 +17,10 @@ import Form from "./Form";
 import StateHook from "./StateHook";
 import LifeCycleHook from './LifeCycleHook';
 import TrafficLightTony from "./sample-app/traffic-light-tony/TrafficLightTony";
+import JobBoardTony from "./sample-app/job-board-tony/JobBoardTony";
+import WrapperComponent from "./WrapperComponent";
+import Todos from "./todos/Todos";
+import { TodoProvider } from "./contexts/todo-context";
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -129,6 +133,17 @@ function App() {
       <br />
 
       <TrafficLightTony />
+
+      <br />
+      <JobBoardTony />
+
+      <br /> 
+      <WrapperComponent />
+
+      <br />
+      <TodoProvider>
+        <Todos />
+      </TodoProvider>
     </>
   )
 }
