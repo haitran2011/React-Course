@@ -23,6 +23,7 @@ import Todos from "./todos/Todos";
 import { TodoProvider } from "./contexts/todo-context";
 import Ref from "./Ref";
 import ReducerHook from "./ReducerHook";
+import PerformanceHook from "./PerformanceHook";
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -153,6 +154,8 @@ function App() {
       <br />
       <ReducerHook />
       <br />
+
+      <PerformanceHook />
       <br />
       <br />
       <br />
