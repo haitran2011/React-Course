@@ -26,10 +26,16 @@ const ButtonStyled = styled.button`
 
 `;
 
-function Button({ text = "Button Text", ...restProps }) {
+const Button = React.forwardRef(({ text = "Button Text", ...restProps }, ref) => {
   return (
-    <ButtonStyled {...restProps}>{text}</ButtonStyled>
+    <ButtonStyled {...restProps} ref={ref}>{text}</ButtonStyled>
   )
-}
+})
+
+// function Button({ text = "Button Text", ...restProps }) {
+//   return (
+//     <ButtonStyled {...restProps}>{text}</ButtonStyled>
+//   )
+// }
 
 export default Button

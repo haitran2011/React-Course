@@ -21,6 +21,8 @@ import JobBoardTony from "./sample-app/job-board-tony/JobBoardTony";
 import WrapperComponent from "./WrapperComponent";
 import Todos from "./todos/Todos";
 import { TodoProvider } from "./contexts/todo-context";
+import Ref from "./Ref";
+import ReducerHook from "./ReducerHook";
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -144,6 +146,19 @@ function App() {
       <TodoProvider>
         <Todos />
       </TodoProvider>
+
+      <br />
+      <Ref />
+
+      <br />
+      <ReducerHook />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </>
   )
 }
