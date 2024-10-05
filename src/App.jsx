@@ -24,6 +24,7 @@ import { TodoProvider } from "./contexts/todo-context";
 import Ref from "./Ref";
 import ReducerHook from "./ReducerHook";
 import PerformanceHook from "./PerformanceHook";
+import CustomHook from "./CustomHook";
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -157,6 +158,11 @@ function App() {
 
       <PerformanceHook />
       <br />
+
+      <CustomHook />
+      <br />
+
+
       <br />
       <br />
       <br />
