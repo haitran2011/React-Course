@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Loop</title>
+    
+  </head>
+  <body>
+    <p id="typograthy">event loop</p>
+
+
+    <script type="text/javascript">
+      const todos = [];
+
+      const promise1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          fetch(`https://jsonplaceholder.typicode.com/todos?_limit=5&_page=1`)
+            .then(json => json.json())
+            .then(data => resolve(data))
+            .catch(error => reject(error))
+        })
+      })
+
+      // .then() get result
+      promise1.then(data => {
+        todos.push(data);
+      })
+
+      async function fetchTodo() {
+        const json = await fetch(`https://jsonplaceholder.typicode.com/todos?_limit=5&_page=1`);
+        const data = await json.json();
+        return data
+      }
+
+      setTimeout(() => console.log('tony'), 0); // macro task queue
+      Promise.resolve().then(() => console.log('Hai')); // micro task queue
+
+    </script>
+  </body>
+
+</html>

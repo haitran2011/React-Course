@@ -25,6 +25,11 @@ import Ref from "./Ref";
 import ReducerHook from "./ReducerHook";
 import PerformanceHook from "./PerformanceHook";
 import CustomHook from "./CustomHook";
+import { Link, NavLink, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import Profile from "./pages/user/profile/profile";
+import Account from "./pages/user/account/account";
+import StateDetail from "./StateDetail";
+import ProductDetail from "./pages/product/product-detail";
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -33,11 +38,15 @@ function Heading({ text = 'Default text' }) {
 }
 
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [menus, setMenus] = React.useState([
     { id: 1, title: 'About Us', underline: false },
     { id: 2, title: 'Contact Us', underline: false}
   ])
   const [isShowLifeCycle, setIsShowLifeCycle] = React.useState(true)
+
+  console.log('location: ', location)
 
   const greeting = {
     title: 'Welcome',
@@ -61,113 +70,164 @@ function App() {
 
   return (
     <>
-      <Props 
-        isLoading={false} // boolean
-        firstName="tony" // string
-        colors={['red', 'blue']} // string[]
-        address={{
-          city: 'hcm',
-          district: 10,
-          country: {
-            code: 999
-          }
-        }}
-        score={10} // number
-        component={Heading} // pass name component
-        component2={<Heading text="direct component" />} // direct component
-        // title={greeting.title}
-        // description={greeting.description}
-        // caption={greeting.caption}
-        {...greeting} // spread operator
-      >
-        this is children props <br />
-        <Heading />
-        <Button />
-      </Props>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid">
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <Link className="nav-link" to="/">Home</Link>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/wrapper-component">Wraper Component</NavLink>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/state">State</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/component" replace>Component</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/user" replace>User</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/props">Props</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/product">Product</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <main>
+        <Routes>
+          <Route 
+            path="/props" 
+            element={
+              <Props 
+                isLoading={false} // boolean
+                firstName="tony" // string
+                colors={['red', 'blue']} // string[]
+                address={{
+                  city: 'hcm',
+                  district: 10,
+                  country: {
+                    code: 999
+                  }
+                }}
+                score={10} // number
+                component={Heading} // pass name component
+                component2={<Heading text="direct component" />} // direct component
+                // title={greeting.title}
+                // description={greeting.description}
+                // caption={greeting.caption}
+                {...greeting} // spread operator
+              >
+                this is children props <br />
+                <Heading />
+                <Button text="Go to Home" onClick={() => navigate('/')} />
+              </Props>
+            } 
+          />
+
+          <Route 
+            path="wrapper-component" 
+            element={
+              <>
+                <h1>Demo WrapperComponent</h1>
+                <MainLayout>
+                  <User title="user"/>
+                </MainLayout>
+
+                <MainLayout>
+                  <Product />
+                </MainLayout>
+              </>
+            }
+          />
+          <Route path="/state" element={<State />} />
+          <Route path="/state/:tony/product/:product" element={<StateDetail />} />
+          <Route path="/component" element={<Component />} />
+          <Route path="/user" element={<User />} >
+            <Route path="profile" element={<Profile />} />
+            <Route path="account" element={<Account />} />
+          </Route>
+          <Route path="/product" element={<Product />} />
+          <Route path="/product/:productId" element={<ProductDetail />} />
+        </Routes>
+
+        <hr />
+        <EventHandler />
+
+        <hr />
+        <ConditionalRendering />
+
+        <hr />
+        <List />
+
+        <hr />
+        <TodoAnatomy />
+
+        <hr />
+        <CSS />
+
+        <hr />
+        <GenerateBoxTony />
+
+        <hr />
+        <Header menus={menus} toggleUnderline={toggleUnderline} />
+        
+        <hr />
+        <Form />
+
+        <hr />
+        <StateHook />
+
+        <hr />
+        <button type="button" onClick={showLifeCycle}>On/off lifecycle hook</button>
+        {isShowLifeCycle && <LifeCycleHook />}
+
+        <br />
+
+        <TrafficLightTony />
+
+        <br />
+        <JobBoardTony />
+
+        <br /> 
+        <WrapperComponent />
+
+        <br />
+        <TodoProvider>
+          <Todos />
+        </TodoProvider>
+
+        <br />
+        <Ref />
+
+        <br />
+        <ReducerHook />
+        <br />
+
+        <PerformanceHook />
+        <br />
+
+        <CustomHook />
+        <br />
 
 
-      <h1>Demo WrapperComponent</h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+      </main>
 
-      <MainLayout>
-        <User title="user"/>
-      </MainLayout>
-
-      <MainLayout>
-        <Product />
-      </MainLayout>
-
-
-      <hr />
-      <State />
-
-      <hr />
-      <Component />
-
-      <hr />
-      <EventHandler />
-
-      <hr />
-      <ConditionalRendering />
-
-      <hr />
-      <List />
-
-      <hr />
-      <TodoAnatomy />
-
-      <hr />
-      <CSS />
-
-      <hr />
-      <GenerateBoxTony />
-
-      <hr />
-      <Header menus={menus} toggleUnderline={toggleUnderline} />
       
-      <hr />
-      <Form />
-
-      <hr />
-      <StateHook />
-
-      <hr />
-      <button type="button" onClick={showLifeCycle}>On/off lifecycle hook</button>
-      {isShowLifeCycle && <LifeCycleHook />}
-
-      <br />
-
-      <TrafficLightTony />
-
-      <br />
-      <JobBoardTony />
-
-      <br /> 
-      <WrapperComponent />
-
-      <br />
-      <TodoProvider>
-        <Todos />
-      </TodoProvider>
-
-      <br />
-      <Ref />
-
-      <br />
-      <ReducerHook />
-      <br />
-
-      <PerformanceHook />
-      <br />
-
-      <CustomHook />
-      <br />
-
-
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </>
   )
 }
