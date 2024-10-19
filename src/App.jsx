@@ -30,8 +30,15 @@ import Profile from "./pages/user/profile/profile";
 import Account from "./pages/user/account/account";
 import StateDetail from "./StateDetail";
 import ProductDetail from "./pages/product/product-detail";
-import { Invoice } from "./pages/invoice";
-import { InvoiceDetail } from './pages/invoice/detail';
+import AuthRoute from "./routes/AuthRoute";
+import { Login } from "./pages/login";
+
+// import { Invoice } from "./pages/invoice";
+// import { InvoiceDetail } from './pages/invoice/detail';
+
+const Invoice = React.lazy(() => import('./pages/invoice/invoice'));
+const InvoiceDetail = React.lazy(() => import('./pages/invoice/detail/invoice-detail'));
+
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -154,7 +161,8 @@ function App() {
               </>
             }
           />
-          <Route path="/state" element={<State />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/state" element={<AuthRoute><State /></AuthRoute>} />
           <Route path="/state/:tony/product/:product" element={<StateDetail />} />
           <Route path="/component" element={<Component />} />
           <Route path="/user" element={<User />} >
@@ -168,6 +176,16 @@ function App() {
             <Route path=":invoiceId" element={<InvoiceDetail />} />
           </Route>
         </Routes>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
         <hr />
         <EventHandler />
