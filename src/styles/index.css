@@ -125,3 +125,18 @@
   border: 1px solid #000;
   overflow-y: auto;
 }
+
+.invoice_list {
+  margin: 0;
+  border-right: 1px solid #ccc;
+}
+
+.invoice_list li {
+  list-style: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.invoice_container {
+  display: flex;
+}

@@ -30,6 +30,8 @@ import Profile from "./pages/user/profile/profile";
 import Account from "./pages/user/account/account";
 import StateDetail from "./StateDetail";
 import ProductDetail from "./pages/product/product-detail";
+import { Invoice } from "./pages/invoice";
+import { InvoiceDetail } from './pages/invoice/detail';
 
 function Heading({ text = 'Default text' }) {
   return (
@@ -98,6 +100,9 @@ function App() {
               <li className="nav-item">
                 <Link className="nav-link" to="/product">Product</Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/invoice">Invoice</Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -158,6 +163,10 @@ function App() {
           </Route>
           <Route path="/product" element={<Product />} />
           <Route path="/product/:productId" element={<ProductDetail />} />
+          <Route path="/invoice" element={<Invoice />}>
+            <Route index element={<h3>Please select an invoice</h3>} />
+            <Route path=":invoiceId" element={<InvoiceDetail />} />
+          </Route>
         </Routes>
 
         <hr />
