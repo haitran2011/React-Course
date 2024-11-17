@@ -1,4 +1,7 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
+
+import { setTheme } from './redux/app.action';
 
 /*
 const todos = []
@@ -30,6 +33,7 @@ const params = {
 }
 
 function ConditionalRendering() {
+  const dispatch = useDispatch();
   const [todos, setTodos] = React.useState(null);
   // const template = game.useTemplate ? 'abc' 
   //                       : url === '1' || url === '2'
@@ -73,6 +77,10 @@ function ConditionalRendering() {
           </div>
         )
       })}
+      <br /> <br />
+      <button type="button" onClick={() => {
+        dispatch(setTheme(`THEME ${Date.now()}`))
+      }}>Update Theme</button>
     </div>
   )
 }

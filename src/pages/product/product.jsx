@@ -1,8 +1,11 @@
 import React from 'react'
 import Button from '../../components/button';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function Product() {
+  // get state from store
+  const theme = useSelector(state => state.app.theme);
   const location = useLocation();
 
   const queryString = new URLSearchParams(location.search);
@@ -53,6 +56,9 @@ function Product() {
             <Button text="Go to detail" onClick={() => navigate(`/product/${item.id}`)} />
         </div>
       ))}
+      <br />
+      <br />
+      State theme: {theme}
     </>
   )
 }

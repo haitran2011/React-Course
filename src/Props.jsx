@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 /*
 destructuring
@@ -39,6 +40,8 @@ function Props({
   children,
   ...restProps
 }) {
+  const loadingSelector = useSelector(state => state.app.isLoading);
+  console.log('Props ----------:', loadingSelector)
   console.log('Props: ', {
     restProps: restProps
   })

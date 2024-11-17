@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from './components/button';
+import { useSelector } from 'react-redux';
 
 // first render
 // re-render (next render)
@@ -17,6 +18,7 @@ import Button from './components/button';
 */
 
 function State() {
+  
   // state
   // array 2 item -> array destructuring
   // initial value: string, boolean, object, number ...
